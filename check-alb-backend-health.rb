@@ -25,7 +25,7 @@ class CheckAzurermMAlbBackendHealth < Sensu::Plugin::Check::CLI
          long: '--backend-host HOST',
          default: ENV['ARM_BACKEND_HOST']
   def run
-    cmd = "az network application-gateway show-backend-health --resource-group #{config[:resource_group]} --name #{config[:gateway_name]} --output json"
+    cmd = "az login --identity; az network application-gateway show-backend-health --resource-group #{config[:resource_group]} --name #{config[:gateway_name]} --output json"
     puts "Executing command: #{cmd}"
     begin
       output = `#{cmd}`
