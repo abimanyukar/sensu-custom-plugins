@@ -53,6 +53,7 @@ class CheckUnroutedQuestions < Sensu::Plugin::Check::CLI
         LEFT JOIN routing_log rl ON rl.question_id = q.id
         JOIN company c ON c.id = q.company_id
         WHERE q.date_created > DATE_FORMAT(DATE_ADD(now(), Interval  -1 day),'%Y-%m-%d') 
+          AND q.date_created < DATE_FORMAT(DATE_ADD(now(), Interval  -1 hour),'%Y-%m-%d') 
           AND q.reroute_type IS NULL
           AND q.status = 0
           AND rl.question_id IS NULL
